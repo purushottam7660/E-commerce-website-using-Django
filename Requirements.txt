@@ -1,0 +1,27 @@
+asgiref==3.7.2
+certifi==2024.2.2
+charset-normalizer==3.3.2
+crispy-bootstrap5==2024.2
+Django==5.0.2
+django-auto-logout==0.5.1
+django-cors-headers==4.3.1
+django-crispy-forms ==2.1
+django-jazzmin==2.6.0
+django-recaptcha==4.0.0
+djangorestframework==3.15.1
+engineering-notation==0.10.0
+idna==3.6
+mysqlclient==2.2.4
+pillow==10.2.0
+pip==23.2.1
+psycopg2==2.9.9
+PythonTurtle==0.3.2
+pytz==2024.1
+razorpay==1.4.2
+requests==2.31.0
+setuptools==65.5.0
+sqlparse==0.4.4
+tk-tools==0.16.0
+tzdata==2024.1
+urllib3==2.2.1
+python-decouple==3.8

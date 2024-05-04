@@ -1,0 +1,59 @@
+{% include 'based.html' %}
+{% block content %}
+{% if prod %}
+    {% for detail in prod %}
+    <div class="card mb-4" style="max-width: 440px">
+  
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="{% url 'details'  pk=detail.id %}">
+            <img src="{{detail.prod_img.url}}" class="img-fluid rounded-start" alt="..." />
+            </a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body  shi">
+              <h5 class="card-title">Category: {{detail.categorys_m}}</h5>
+              <h6 class="card-title">Name: {{detail.Products_name}}</h6>
+              <h6 class="card-text">Description: {{detail.P_description}}<h6>
+              <h5 class="card-title">Price: {{detail.price}}</h5>
+
+              <form action="{% url 'remove_wish' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{detail.id}}">
+                <button type="submit" class="btn btn-danger ss">
+                  Remove
+                </button>
+              </form>
+              <br>
+          {% if prod_card %}
+            <form action="{% url 'add_to_card' pk=detail.id %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="prod_id" value="{{detail.id}}" >
+              <button type="submit" class="btn btn-danger ss">
+                ADDED TO CART
+              </button>
+            </form>
+            {% else %}
+            <form action="{% url 'add_to_card' pk=detail.id %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="prod_id" value="{{detail.id}}" >
+              <button type="submit" class="btn btn-warning ss">
+                ADD TO CART
+              </button>
+            </form>
+            {% endif %}
+                
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+{% else %}
+<script>
+  alert("Wishlist is Empty!!!.");
+  window.location.href = "{% url 'index' %}";
+</script>
+
+{% endif %}
+{% include 'footer.html' %}    
+{% endblock %}

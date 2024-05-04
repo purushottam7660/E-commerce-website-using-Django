@@ -1,0 +1,124 @@
+{% include 'based.html' %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+
+       {% if registered %}
+       <h1>Thanku For Registration</h1>
+
+       {% else %}
+       <center><h1>Looks like you're new here!</h1></center>
+       <h1> Registration FORM</h1>
+       <form enctype="multipart/form-data" method="POST">
+           {% csrf_token %}
+           {{form.username|as_crispy_field}}
+           <br>
+           {{form.password|as_crispy_field}}
+           <br>
+           {{form.email|as_crispy_field}}
+           
+
+           <input type="submit" value="SUBMIT" class="btn btn-warning" />
+       </form>
+       {% endif %}
+    </div>
+</div>
+    {% comment %}  {% endcomment %}
+    
+
+      <center>
+        <h1>
+            Login
+        </h1><br>
+        <form action="{% url 'user_login' %}" method="POST">
+            {% csrf_token %}
+        
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="Enter username"><br><br>
+            <label for="password">Password</label>
+            <input type="password" name="password" placeholder="Enter your password"><br><br>
+            <input type="submit" class="btn btn-success" value="LOGIN">
+        </form>
+    </center>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  
+
+
+      <center>
+        <h1>Update Your Profile Data</h1><br>
+        <form method="POST">
+            {% csrf_token %}
+            {{form1.as_p}}
+            <input type="submit" value="ADD" class="btn btn-danger">
+        </form>
+    
+    </center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <!-- navbar -->
+    <nav class = "navbar navbar-expand-lg navbar-light bg-dark py-4 fixed-top">
+        <div class = "container">
+            <a class = "navbar-brand d-flex justify-content-between align-items-center order-lg-0" href = "index.html">
+                <img src = "images/shopping-bag-icon.png" alt = "site icon">
+                <span class = "text-uppercase fw-lighter ms-2">PK Shop</span>
+            </a>
+
+            <div class = "order-lg-2 nav-btns">
+                <button type = "button" class = "btn position-relative">
+                    <i class = "fa fa-shopping-cart"></i>
+                    <span class = "position-absolute top-0 start-100 translate-middle badge bg-primary">5</span>
+                </button>
+                <button type = "button" class = "btn position-relative">
+                    <i class = "fa fa-heart"></i>
+                    <span class = "position-absolute top-0 start-100 translate-middle badge bg-primary">2</span>
+                </button>
+                <button type = "button" class = "btn position-relative">
+                    <i class = "fa fa-search"></i>
+                </button>
+            </div>
+
+            <button class = "navbar-toggler border-0" type = "button" data-bs-toggle = "collapse" data-bs-target = "#navMenu">
+                <span class = "navbar-toggler-icon"></span>
+            </button>
+
+            <div class = "collapse navbar-collapse order-lg-1" id = "navMenu">
+                <ul class = "navbar-nav mx-auto text-center">
+                    <li class = "nav-item px-2 py-2">
+                        <a class = "nav-link text-uppercase text-dark" href = "#header">home</a>
+                    </li>
+                    <li class = "nav-item px-2 py-2">
+                        <a class = "nav-link text-uppercase text-dark" href = "#collection">collection</a>
+                    </li>
+                    <li class = "nav-item px-2 py-2">
+                        <a class = "nav-link text-uppercase text-dark" href = "#special">specials</a>
+                    </li>
+                    <li class = "nav-item px-2 py-2">
+                        <a class = "nav-link text-uppercase text-dark" href = "#blogs">blogs</a>
+                    </li>
+                    <li class = "nav-item px-2 py-2">
+                        <a class = "nav-link text-uppercase text-dark" href = "#about">about us</a>
+                    </li>
+                    <li class = "nav-item px-2 py-2 border-0">
+                        <a class = "nav-link text-uppercase text-dark" href = "#popular">popular</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- end of navbar -->
+{% endblock %}

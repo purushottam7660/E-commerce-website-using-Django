@@ -1,0 +1,44 @@
+{% include 'based.html' %}
+
+{% block content %}
+{% if prods %}
+  {% for detail in prods %}
+
+    <div class="card mb-1" style="max-width: 400px; ">
+      <div class="row g-1">
+        <div class="col-md-4">
+          <img src="{{detail.prod_img.url}}" class="img-fluid rounded-start" alt="..." />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body  shi">
+            <h5 class="card-title">Category: {{detail.categorys_m}}</h5>
+            <h6 class="card-title">Name: {{detail.Products_name}}</h6>
+            <h6 class="card-text">Description: {{detail.P_description}}<h6>
+                <h5 class="card-title">Price: ₹{{detail.price}}</h5>
+
+                <form action="{% url 'delete' %}" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="pro_id" value="{{detail.id}}">
+                  <button type="submit" class="btn btn-danger ss">
+                    Remove
+                  </button>
+                </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  {% include 'footer.html' %}  
+<!-- ------------------------------------------------------------------------------------ -->
+{% include 'payment.html' %}
+
+<!-- ------------------------------------------------------------------------------------------------------------>
+{%else%}
+  <center>
+    <h1 style="margin-top:10%;">Your card is currently empty.</h1>
+
+  </center>
+{% endif %}
+{% endblock %}
+  

@@ -1,0 +1,119 @@
+{% load static %}
+{% block content %}
+
+    <div class="bill" style="margin-left: 40%; padding:2%; position:absolute; top: 100px;">
+        <table class="table"  style="padding: 5px 10px; border-radius: 50px;">
+          <thead>
+            <tr>
+              <th>
+                <h3>Description
+                </h3>
+              </th>
+              <th>
+                <h3>Amount</h3>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for detail in prods %}
+            <tr>
+              <td class="col-md-9">{{detail.Products_name}}</td>
+              <td class="col-md-3"><i class="fas fa-rupee-sign" area-hidden="true"></i> {{detail.price}} </td>
+            </tr>
+            {% endfor %}
+            <tr>
+              <td class="text-right">
+                <p><strong>Shipment Charges:</strong></p>
+                <p><strong>Taxes(CGST): </strong></p>
+                <p><strong>Taxes(SGST): </strong></p>
+      
+                <p><strong>Total Amount({{count}} item): </strong></p>
+                <p><strong>Payable Amount: </strong></p>
+              </td>
+              <td>
+                {% if delivery %}
+                <p><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{delivery}} </strong></p>
+                {% else %}
+                <p><strong><i area-hidden="true"></i> Free </strong></p>
+                {% endif %}
+                <p><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{gst}}</strong></p>
+                <p><strong><i class="fas fa-rupee-sign" area-hidden="true"></i>{{gst}}</strong></p>
+      
+                <p><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{T_price}}</strong></p>
+                <p><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{total}}</strong></p>
+              </td>
+            </tr>
+              <tr style="color: #F81D2D;">
+                <td class="text-right">
+                  <h4 style="font-text:bold; font-style:italic;"><strong>Total :</strong></h4>
+                </td>
+                <td class="text-left">
+                  <h4><strong><i class="fas fa-rupee-sign" area-hidden="true"></i> {{total}} </strong></h4>
+      
+                </td>
+      
+              </tr>
+              <tr style="color: #F81D2D;">
+                <td class="text-right">
+                  <h5 style="font-text:bold; font-style:italic;">Select to pay</h5>
+                </td>
+                <td class="text-left">
+                  <input type="radio" id="razorpayRadio" name="paymentMethod" value="RazorPay">
+                  <label for="RazorPay"><img src="{% static 'image/razorpay.png' %}" alt="" style="height: 25px; width:60px;"></label>
+                  <input type="radio" id="paypalRadio" name="paymentMethod" value="Paypal">
+                  <label for="Paypal"><img src="{% static 'image/PayPal.png' %}" alt=""  style="height: 25px; width:60px;"></label>
+                </td>
+                </tr>
+                </tbody>
+                </table>
+
+        <!----------------------------------Payment-------------------------------------------------->
+
+        <div class="container">
+          <form id="paymentForm" class="text-center  border-light p-5" method="POST" actiom="{% url 'success' %}">
+            {% csrf_token %}
+            <center>
+              <button type="button" class="btn btn-danger ss" id="payButton">Proceed to Pay </button>
+            </center>
+          </form>
+        </div>
+      
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+        <script>
+        document.getElementById('payButton').addEventListener('click', function() {
+          var paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+          if (paymentMethod === "RazorPay") {
+            var options = {
+              "key": "{{RZP_KEY}}",
+              "amount": "{{ amount }}",
+              "currency": "INR",
+              "name": "{{ payment.id }}",
+              "description": "Django and Data Science",
+              "image": "https://example.com/your_logo.jpg",
+              "prefill": {
+                "name": "Purushottam",
+                "email": "purushottam7660gmail.com"
+              },
+              "theme": {
+                "color": "#F37254"
+              },
+              "handler": function (response){
+                alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+              }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+          } else if (paymentMethod === "Paypal") {
+            window.location.href = "https://www.paypal.com";
+          } else {
+            alert("Please choose a valid payment method.");
+
+          }
+        });
+        </script>
+        
+        <!-- <p class="h3 mb-3"><i class="fas fa-coffee"></i> PAY!!</p> -->
+        
+
+{% endblock %}

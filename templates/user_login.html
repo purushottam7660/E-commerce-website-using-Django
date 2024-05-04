@@ -1,0 +1,47 @@
+{% include 'based.html' %}
+{% load crispy_forms_tags %}
+<style>
+  body{
+      
+    background:#c8c8c8;
+    
+  }
+    form{
+        background: #fff;
+    
+    }
+    .form-container{
+        border-radius: 20px;
+        padding: 50px;
+        margin-top: 70px;
+    }
+    
+  </style>
+    
+ <section class="container-fluid">
+      <section class="row justify-content-center">
+        <section class="col-12 col-sm-6 col-md-4">
+          <form action="{% url 'user_login' %}" method="POST" class="form-container">
+            {% csrf_token %}
+          <div class="form-group">
+            <h4 class="text-center font-weight-bold"> Login </h4><br>
+            <label for="username">Username*</label>
+             <input type="text" class="form-control" name="username" aria-describeby="usernameHelp" placeholder="Enter username" required>
+          </div><br><br>
+          <div class="form-group">
+            <label for="password">Password*</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+          </div><br><br>
+          <center><button type="Sign in" class="btn btn-primary btn-block">Sign in</button></center>
+          <div class="form-footer"><br><br>
+            <p> Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
+          </div>
+          </form>
+        </section>
+      </section>
+    </section>
+  
+
+
+{% block content %}
+{% endblock %}

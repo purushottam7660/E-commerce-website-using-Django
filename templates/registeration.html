@@ -1,0 +1,42 @@
+{% include 'based.html' %}
+{% load crispy_forms_tags %}
+
+<div class="container">
+        <div class="jumbotron">
+
+           {% if registered %}
+
+                <script>
+                    alert('Registration successful!')
+                    window.location.href = "{% url 'user_login' %}";
+                </script>
+
+           {% else %}
+                <center><h1>Looks like you're new here!</h1></center>
+                <h1> Registration FORM</h1>
+                
+                <form enctype="multipart/form-data" method="POST">
+                    {% csrf_token %}
+                    {{form.username|as_crispy_field}}
+                    <br>
+                    {{form.password|as_crispy_field}}
+                    <br>
+                    {{form.email|as_crispy_field}}
+                    
+                    
+                    
+
+                    <input type="submit" value="SUBMIT" class="btn btn-warning" />
+                </form>
+            {% endif %}
+            
+        </div>
+    </div>
+
+    
+
+    
+{% block content %}
+{% endblock %}
+
+

@@ -1,0 +1,64 @@
+{% include 'based.html' %}
+{% block content %}
+<section style="display: flex; justify-content: center;padding:20px;">
+
+<div class="card mb-3" style="width: 600px; ">
+  
+  <div class="row g-0">
+    <div class="col-md-5">
+      
+      <img src="{{detail.prod_img.url}}"class="card-img-top img" style="height: 400px; width: 100%; object-fit: cover;" alt="..."/>
+      
+    </div>
+    <div class="col-md-6">
+      <div class="card-body  shi">
+        <h5 class="card-title">Products : {{detail.Products_name}}</h5>
+        <h5 class="card-title">Category : {{detail.categorys_m}}</h5>
+        <h5 class="card-title">Price: ₹{{detail.price}}</h5>
+        <h6 class="card-text">Description : {{detail.P_description}}<h6><br>
+
+          {% if prod_like %}
+            <form action="{% url 'product_like' pk=detail.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit">
+                <input type="hidden" name="product_id" value="{{detail.id}}">
+                <i class="fa-solid fa-heart" style="color: #000000; border-radius: 0px;"></i>
+              </button>
+            </form>
+          {% else %}
+            <form action="{% url 'product_like' pk=detail.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit">
+                <input type="hidden" name="product_id" value="{{detail.id}}">
+                <i class="fa-regular fa-heart"></i>
+              </button>
+            </form>
+            {% endif %}
+        <br>
+        {% if prod_card %}
+            <form action="{% url 'add_to_card' pk=detail.id %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="prod_id" value="{{detail.id}}" >
+              <button type="submit" class="btn btn-danger ss">
+                ADDED TO CART
+              </button>
+            </form>
+        {% else %}
+            <form action="{% url 'add_to_card' pk=detail.id %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="prod_id" value="{{detail.id}}" >
+              <button type="submit" class="btn btn-warning ss">
+                ADD TO CART
+              </button>
+            </form>
+        {% endif %}
+
+        <!-- <a href="#" >ADD TO CART</a> -->
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+{% include 'footer.html' %}    
+
+{% endblock %}

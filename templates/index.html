@@ -1,0 +1,20 @@
+{% include 'based.html' %}
+{% block content %}
+    <div class ='row' style="padding: 20px;">
+        {% for data in product %}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <a href="{% url 'details'  pk=data.id %}">
+                        <img src="{{ data.prod_img.url }}"  alt="{{ data.Products_name }}" class="card-img-top" style="height: 500px; width: 100%; object-fit: cover;">
+                    </a>
+                    <div class="card-body">
+                        <p class="card-text" ><strong>{{ data.Products_name }}</strong></p>
+                        <p class="card-text"> {{ data.P_description }}</p>
+                        <p class="card-text"><strong>Price:</strong> ₹{{ data.price }}</p>
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+    </div>
+{% include 'footer.html' %}    
+{% endblock %}

@@ -1,0 +1,26 @@
+{% include 'based.html' %}
+{% block content %}
+{% for i in products %}
+<div class="card mb-3" style="max-width: 440px">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img
+        src="{{i.prod_img.url}}"
+        class="img-fluid rounded-start"
+        alt="..."
+      />
+    </div>
+    
+    <div class="col-md-8">
+      <div class="card-body  shi">
+        <h5 class="card-title">{{i.categorys_m}}</h5>
+        <h6 class="card-title">{{i.Products_name}}</h6>
+        <h5 class="card-title">Price:₹{{i.price}}</h5>
+        <h6 class="card-text">{{i.P_description}}<h6>
+        <a href="#" class="btn btn-warning ss">ADD TO CART</a>
+      </div>
+    </div>
+  </div>
+</div>
+{%endfor%}
+{% endblock %}
